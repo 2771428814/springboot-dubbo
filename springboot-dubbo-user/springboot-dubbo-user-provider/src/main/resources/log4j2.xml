@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!-- status log4j2内部日志级别 -->
+<configuration status="INFO"  packages="com.fengjian">
+    <!-- 全局参数 -->
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%t]%c{1}:%L -%m%n</Property>
+        <Property name="displayName">springboot-dubbo-user</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+        <!-- 文件 每次运行程序会自动清空，由append属性决定 -->
+        <RollingRandomAccessFile name="error" fileName="../log/${displayName}/${displayName}-error.log" append="true"
+                                 filePattern="../log/${displayName}/$${date:yyyy-MM}/${displayName}-error-%d{yyyy-MM-dd-HH}-%i.log">>
+            <!-- 指定error 级别的日志 -->
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT"
+                             onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="mpsp" fileName="../log/${displayName}/${displayName}-mpsp.log" append="true"
+                                 filePattern="../log/${displayName}/$${date:yyyy-MM}/${displayName}-mpsp-%d{yyyy-MM-dd-HH}-%i.log">
+            <!-- 指定简要日志级别的日志 -->
+
+            <Log4jEncodeLayout>
+                <pattern>${pattern}</pattern>
+            </Log4jEncodeLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <!-- 滚动文件 -->
+        <RollingRandomAccessFile name="detail" fileName="../log/${displayName}/${displayName}-detail.log"
+                                 filePattern="../log/${displayName}/$${date:yyyy-MM}/${displayName}-detail-%d{yyyy-MM-dd-HH}-%i.log">
+            <!-- 指定详细 级别的日志 -->
+            <Log4jEncodeLayout>
+                <pattern>${pattern}</pattern>
+            </Log4jEncodeLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" level="WARN"/>
+
+
+        <Logger name="com.fengjian" level="INFO" additivity="false">
+            <AppenderRef ref="detail"/>
+            <AppenderRef ref="error"/>
+
+        </Logger>
+        <Logger name="mpsp" level="INFO" additivity="false">
+            <AppenderRef ref="mpsp"/>
+        </Logger>
+
+        <Root level="ALL">
+            <AppenderRef ref="console"></AppenderRef>
+            <AppenderRef ref="error"/>
+
+        </Root>
+    </Loggers>
+</configuration>

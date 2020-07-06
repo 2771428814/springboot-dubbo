@@ -1,0 +1,44 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+######################
+# Get测试
+######################
+http://127.0.0.1:8080/gateway/demo/get?name=冯健
+Accept-Language:  zh_CN
+
+######################
+# POST测试
+######################
+POST http://127.0.0.1:8080/gateway/demo/post
+Content-Type: application/json
+Accept-Language:  zh_CN
+signature: 73545CAAF3D41A852B124EF7730E374A
+
+{
+  "id": 999,
+  "value": "content"
+}
+##########################
+#post2 特殊地址，不进行验签
+##########################
+POST http://127.0.0.1:8080/gateway/demo/post2
+Content-Type: application/json
+Accept-Language:  en_US
+
+{"aa":[{"bb":"ccc","c":"eee"},{"b":"vvv","cc":"ddd"}],"bbb":"5AAFC7E43899A79A9D1476A488264E5F"}
+
+###########################
+#post3 既验签又加密
+###########################
+POST http://127.0.0.1:8080/gateway/demo/coke/post3
+Content-Type: application/json
+Accept-Language:  zh_CN
+signature: 340E33836A2DB909CDAF26496C1DD1CE
+
+{"aa":[{"bb":"ccc","cc":"eee"},{"bb":"vvv","cc":"ddd"}],"bbb":"5AAFC7E43899A79A9D1476A488264E5F"}
+
+###

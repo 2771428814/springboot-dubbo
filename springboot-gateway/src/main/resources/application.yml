@@ -1,0 +1,44 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /gateway
+spring:
+  application:
+    name: springboot-gateway
+  messages:
+    encoding: UTF-8
+    basename: i18n/message
+######dubbo配置###########
+dubbo:
+  application:
+    name: springboot-gateway-consume
+  #protocol:
+  #  id: dubbo
+  #  name: dubbo
+  #  port: 20880
+  registry:
+    id: zookeeper
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+  consumer:
+    filter: user-log-filter
+    version: 1.0.0
+    check: true
+  reference:
+    loadbalance: roundrobin #轮询机制
+#    loadbalance: random #随机机制
+#    loadbalance: leastactive #最少活跃调用数机制
+#####日志配置#####
+logging:
+  config: classpath:log4j2.xml
+
+#=====================================
+#自定义配置数据
+
+#####日志脱敏配置#####
+log4jConfig:
+  encodeCharKeys: retCode,retMsg
+
+######需要做数据加密及解密的关键字#######
+data:
+  decryptAndEncryptKeys: name,idNo,bbb
