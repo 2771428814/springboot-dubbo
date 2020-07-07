@@ -7,7 +7,7 @@
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package com.fengjian.user.business.dao;
+package com.fengjian.user.business.mapper;
 
 import com.fengjian.user.business.pojo.User;
 import org.apache.ibatis.annotations.Mapper;

@@ -10,7 +10,7 @@
 package com.fengjian.user.business.dubbosrervice.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.fengjian.user.business.dao.UserMapper;
+import com.fengjian.user.business.mapper.UserMapper;
 import com.fengjian.user.business.dto.ReturnMessage;
 import com.fengjian.user.business.dto.UserDto;
 import com.fengjian.user.business.dubboservice.UserLoginService;
@@ -18,7 +18,6 @@ import com.fengjian.user.business.pojo.User;
 import com.fengjian.user.utils.ReturnMessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
