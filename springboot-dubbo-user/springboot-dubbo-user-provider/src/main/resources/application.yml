@@ -1,6 +1,15 @@
 spring:
   application:
     name: springboot-dubbo-user
+  datasource:
+    url: jdbc:mysql://10.98.17.4:3306/fengjiandb
+    username: fengjian
+    password: fengjian
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.fengjian.user.business.pojo
+
 dubbo:
   application:
     id: springboot-dubbo-user-provider
@@ -21,7 +30,7 @@ dubbo:
     version: 1.0.0
     timeout: 60000
   scan:
-    basePackages: com.fengjian.user
+    basePackages: com.fengjian
 
 #####日志配置#####
 logging:
