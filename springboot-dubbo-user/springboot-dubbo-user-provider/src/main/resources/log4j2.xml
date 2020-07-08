@@ -51,19 +51,38 @@
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingRandomAccessFile>
+        <!-- 滚动文件druid 记录sql -->
+        <RollingRandomAccessFile name="druid" fileName="../log/${displayName}/${displayName}-druid.log"
+                                 filePattern="../log/${displayName}/$${date:yyyy-MM}/${displayName}-druid-%d{yyyy-MM-dd-HH}-%i.log">
+            <!-- 指定详细 级别的日志 -->
+            <Log4jEncodeLayout>
+                <pattern>${pattern}</pattern>
+            </Log4jEncodeLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+
+
     </Appenders>
     <Loggers>
         <Logger name="org.springframework" level="WARN"/>
-
-
         <Logger name="com.fengjian" level="INFO" additivity="false">
             <AppenderRef ref="detail"/>
             <AppenderRef ref="error"/>
-
         </Logger>
         <Logger name="mpsp" level="INFO" additivity="false">
             <AppenderRef ref="mpsp"/>
         </Logger>
+        <!--记录druid-sql的记录-->
+        <logger name="druid.sql.Statement" level="debug" additivity="false">
+            <appender-ref ref="druid"/>
+        </logger>
+        <logger name="druid.sql.Statement" level="debug" additivity="false">
+            <appender-ref ref="druid"/>
+        </logger>
 
         <Root level="ALL">
             <AppenderRef ref="console"></AppenderRef>
